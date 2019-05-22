@@ -32,6 +32,8 @@ public class BizTypeMapper {
     @Bean
     public Map<String, Map<String, String>> bizTypeMap() {
         // TODO 从数据库或者常量配置
+        // TODO 核心是把 原始对象和输出对象的映射关系 加载到内存中 提供给各handler使用，目前我会考虑直接将映射函数存库
+        // TODO 还会考虑将原始请求报文实体类存库，动态加载到内存
         List<Map<String, String>> bizTypeMapList = new ArrayList<>();
 
         Map<String, String> bizTypeA = new HashMap<>();
