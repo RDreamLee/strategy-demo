@@ -1,10 +1,8 @@
 package top.r2ys.strategydemo.handler;
 
-import top.r2ys.strategydemo.dto.BizDto;
-import top.r2ys.strategydemo.service.IHandleDelegate;
-import top.r2ys.strategydemo.service.IInvokeExternalSystemService;
-import top.r2ys.strategydemo.service.ISourceStorageService;
-import top.r2ys.strategydemo.service.IValidateService;
+import top.r2ys.strategydemo.entity.BizDto;
+import top.r2ys.strategydemo.exception.ValidationFailException;
+import top.r2ys.strategydemo.service.*;
 
 /**
  * @program: strategy-demo
@@ -12,50 +10,68 @@ import top.r2ys.strategydemo.service.IValidateService;
  * @author: HU
  * @create: 2019-05-22 14:33
  */
-public abstract class AbstractBizHandler<T extends BizDto> implements IHandleDelegate, IValidateService, ISourceStorageService, IInvokeExternalSystemService {
+public abstract class AbstractBizHandler<S, T, U>
+        implements
+        IHandleDelegate,
+        IParseService<S>,
+        IValidateService<S>,
+        ISourceStorageService<S, T>,
+        IInvokeExternalSystemService<T, U> {
 
-    public String setup(T entity) {
+    public String handle(BizDto dto) throws RuntimeException {
+        S raw = this.parse(dto.getBizData());
+        T entity = null;
+        U reqBody = null;
+        String externalResponse = null;
+
         if (this.needValidate()) {
-            this.validateParams(entity);
+            this.validate(raw);
         }
         if (this.needStorageSource()) {
-            this.storage(entity);
+            entity = this.storage(raw);
         }
         if (this.needInvokeExternal()) {
-            this.req(entity);
+            reqBody = this.mapFrom(entity);
+            externalResponse = this.req(reqBody);
         }
-        return this.handle(entity);
+        return externalResponse;
     }
-
-    abstract public String handle(T entity);
 
     @Override
     public boolean needValidate() {
         return false;
     }
-
     @Override
     public boolean needStorageSource() {
         return false;
     }
-
     @Override
     public boolean needInvokeExternal() {
         return false;
     }
 
     @Override
-    public Object req(Object reqParam) {
+    public S parse(String dataString) {
         return null;
     }
 
     @Override
-    public boolean storage(Object record) {
-        return false;
+    public boolean validate(S srcEntity) throws ValidationFailException {
+        return true;
     }
 
     @Override
-    public boolean validateParams(Object params) {
-        return false;
+    public T storage(S record) {
+        return null;
+    }
+
+    @Override
+    public U mapFrom(T entity) {
+        return null;
+    }
+
+    @Override
+    public String req(U reqParam) {
+        return null;
     }
 }

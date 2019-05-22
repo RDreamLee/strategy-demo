@@ -1,4 +1,4 @@
-package top.r2ys.strategydemo.dto;
+package top.r2ys.strategydemo.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

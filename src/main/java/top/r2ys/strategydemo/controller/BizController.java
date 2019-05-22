@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.r2ys.strategydemo.dto.BizDto;
+import top.r2ys.strategydemo.entity.BizDto;
 import top.r2ys.strategydemo.service.IBizService;
 
 /**

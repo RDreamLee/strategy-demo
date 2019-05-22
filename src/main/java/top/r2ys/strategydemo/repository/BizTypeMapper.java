@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
  * @author: HU
  * @create: 2019-04-24 19:03
  */
+@Deprecated
 @Component
 public class BizTypeMapper {
 

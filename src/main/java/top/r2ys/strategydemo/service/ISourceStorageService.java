@@ -2,11 +2,11 @@ package top.r2ys.strategydemo.service;
 
 /**
  * @program: strategy-demo
- * @description:
+ * @description: 负责持久数据
  * @author: HU
  * @create: 2019-05-22 16:08
  */
-public interface ISourceStorageService {
+public interface ISourceStorageService<S, T> {
 
-    boolean storage(Object record);
+    T storage(S record);
 }

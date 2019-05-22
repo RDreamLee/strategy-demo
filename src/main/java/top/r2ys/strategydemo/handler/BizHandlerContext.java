@@ -1,8 +1,5 @@
 package top.r2ys.strategydemo.handler;
 
-import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Component;
-import top.r2ys.strategydemo.dto.BizDto;
 import top.r2ys.strategydemo.util.BeanTool;
 
 import java.util.Map;

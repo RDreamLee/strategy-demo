@@ -2,8 +2,7 @@ package top.r2ys.strategydemo.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import top.r2ys.strategydemo.dto.BizDto;
-import top.r2ys.strategydemo.handler.AbstractBizHandler;
+import top.r2ys.strategydemo.entity.BizDto;
 import top.r2ys.strategydemo.handler.BizHandlerContext;
 import top.r2ys.strategydemo.service.IBizService;
 
@@ -25,13 +24,8 @@ public class BizServiceImpl implements IBizService {
 
     @Override
     public String handleBiz(BizDto bizDto) {
-        AbstractBizHandler handler = null;
-        try {
-            handler = bizHandlerContext.getInstance(bizDto.getBizType());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "error";
-        }
-        return handler.setup(bizDto);
+        return bizHandlerContext
+                .getInstance(bizDto.getBizType())
+                .handle(bizDto);
     }
 }

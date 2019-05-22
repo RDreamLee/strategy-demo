@@ -1,9 +1,12 @@
 package top.r2ys.strategydemo.handler;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Component;
 import top.r2ys.strategydemo.annotation.BizEnum;
 import top.r2ys.strategydemo.annotation.BizType;
-import top.r2ys.strategydemo.dto.BizDto;
+import top.r2ys.strategydemo.entity.BizCDataEntity;
+import top.r2ys.strategydemo.entity.BizCPo;
+import top.r2ys.strategydemo.entity.BizDto;
 
 /**
  * @program: strategy-demo
@@ -13,9 +16,10 @@ import top.r2ys.strategydemo.dto.BizDto;
  */
 @Component
 @BizType(BizEnum.BIZC)
-public class BizCHandler extends AbstractBizHandler {
+public class BizCHandler extends AbstractBizHandler<BizCDataEntity, BizCPo, JSONObject> {
     @Override
     public String handle(BizDto entity) {
-        return "BizCHandler succeed," + entity.getBizType() + ":" + entity.getBizData();
+        System.out.println("BizCHandler begin," + entity.getBizType() + ":" + entity.getBizData());
+        return super.handle(entity);
     }
 }
